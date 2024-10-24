@@ -1,0 +1,42 @@
+@import "../Glassic";
+
+.glassCard-outer {
+	-webkit-backdrop-filter: blur(30px);
+	backdrop-filter: blur(30px);
+
+	border-radius: $border-radius;
+
+	&.shadow {
+		@include outerShadow;
+	}
+
+	&.rainbow {
+		@include rainbowBorder;
+
+		&, .glassCard-inner {
+			border-radius: $border-radius_rainbow;
+		}
+	}
+
+
+	.glassCard-inner {
+		user-select: none;
+		padding: $inner-padding_cards;
+		border-radius: $border-radius;
+
+		&.shadow {
+			@include innerShadow;
+		}
+
+		>.noise {
+			@include noise;
+			border-radius: $border-radius;
+		}
+
+		>.content {
+			position: relative;
+			z-index: 2;
+			text-shadow: $text-shadow_content;
+		}
+	}
+}

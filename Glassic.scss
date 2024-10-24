@@ -1,0 +1,179 @@
+@use "sass:color";
+@use "sass:map";
+
+// Variables
+// TODO: split this into a section for colors, utilizing maps and color to generate colours based on a base color
+// some variants I can think of are: Bright, Dark, Transparent,
+//$theme-color_primary: #0F8;
+$theme-color_primary: #6220F0;
+$theme-color_secondary: #09F;
+$theme-color_tertiary: #FF0080;
+$theme-color_quaternary: #F80;
+$theme-color_background: #1C1C1C;
+
+// Bright
+$brightness_adjustment: 20%;
+$theme-color_primary_bright: color.adjust($theme-color_primary, $red: $brightness_adjustment, $green: $brightness_adjustment, $blue: $brightness_adjustment);
+$theme-color_secondary_bright: color.adjust($theme-color_secondary, $red: $brightness_adjustment, $green: $brightness_adjustment, $blue: $brightness_adjustment);
+$theme-color_tertiary_bright: color.adjust($theme-color_tertiary, $red: $brightness_adjustment, $green: $brightness_adjustment, $blue: $brightness_adjustment);
+$theme-color_quaternary_bright: color.adjust($theme-color_quaternary, $red: $brightness_adjustment, $green: $brightness_adjustment, $blue: $brightness_adjustment);
+
+
+// slightly transparent
+$visibility: 0.2; // 20 percent
+$theme-color_primary_tint: rgba($theme-color_primary, $visibility);
+$theme-color_secondary_tint: rgba($theme-color_secondary, $visibility);
+$theme-color_tertiary_tint: rgba($theme-color_tertiary, $visibility);
+$theme-color_quaternary_tint: rgba($theme-color_quaternary, $visibility);
+
+$theme-color_text_light: #DFDFDF;
+$theme-color_text_dark: #1C1C1C;
+
+$border-radius: 14px;
+$border-radius_rainbow: 0;
+
+$inner-padding: 30px;
+$inner-padding_panes: $inner-padding;
+$inner-padding_cards: $inner-padding;
+$inner-padding_buttons: 10px 30px;
+
+$text-shadow: 0 6px 14px rgb(0 0 0);
+$text-shadow_content: $text-shadow;
+
+
+// Rainbows
+// TODO: can we use a loop, with a map that shifts the colors by one, to generate the rainbow colors?
+@keyframes changeRainbowBorder {
+	0%, 100% {
+		border-image-source: linear-gradient(45deg, $theme-color_primary, $theme-color_secondary, $theme-color_tertiary, $theme-color_quaternary);
+	}
+	25% {
+		border-image-source: linear-gradient(45deg, $theme-color_quaternary, $theme-color_primary, $theme-color_secondary, $theme-color_tertiary);
+	}
+	50% {
+		border-image-source: linear-gradient(45deg, $theme-color_tertiary, $theme-color_quaternary, $theme-color_primary, $theme-color_secondary);
+	}
+	75% {
+		border-image-source: linear-gradient(45deg, $theme-color_secondary, $theme-color_tertiary, $theme-color_quaternary, $theme-color_primary);
+	}
+}
+
+
+@keyframes changeRainbowBackground {
+	0%, 100% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+}
+
+
+@mixin rainbowBorder {
+	border-image-slice: 1;
+	border-image-width: 3px;
+	border-radius: 0;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+
+	animation: changeRainbowBorder 10s ease infinite, neonGlow 10s infinite alternate;
+}
+
+
+@mixin rainbowBackground {
+	background: linear-gradient(45deg, $theme-color_primary, $theme-color_secondary, $theme-color_tertiary, $theme-color_quaternary);
+	background-size: 500% 500%;
+
+	animation: changeRainbowBackground 10s linear infinite;
+}
+
+
+// transparent rainbow
+@mixin rainbowBackground_transparent {
+	background: linear-gradient(45deg, rgba(15, 0, 136, 0.2), rgba(0, 153, 255, 0.2), rgba(255, 0, 128, 0.2), rgba(255, 136, 0, 0.2));
+	background-size: 500% 500%;
+
+	animation: changeRainbowBackground 10s linear infinite;
+}
+
+
+@mixin outerShadow {
+	box-shadow: 0 4px 7px rgb(26 26 26 / 30%);
+	-moz-box-shadow: 0 4px 7px rgb(26 26 26 / 30%);
+	-webkit-box-shadow: 0 4px 7px rgb(26 26 26 / 30%);
+}
+
+
+@mixin innerShadow {
+	box-shadow: inset 0 0 100px 40px rgb(124 124 124 / 30%);
+	-moz-box-shadow: inset 0 0 100px 40px rgb(124 124 124 / 30%);
+	-webkit-box-shadow: inset 0 0 100px 40px rgb(124 124 124 / 30%);
+}
+
+
+@mixin innerShadow_buttons {
+	box-shadow: inset 0 0 11px 6px rgb(255 255 255 / 20%);
+	-moz-box-shadow: inset 0 0 11px 6px rgb(255 255 255 / 20%);
+	-webkit-box-shadow: inset 0 0 11px 6px rgb(255 255 255 / 20%);
+}
+
+
+@mixin noise {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	opacity: 0.1;
+}
+
+
+%LightDarkText {
+	&.light {
+		color: $theme-color_text_light;
+	}
+
+	&.dark {
+		color: $theme-color_text_dark;
+	}
+}
+
+
+%TextShadow {
+	&.textShadow {
+		text-shadow: $text-shadow;
+	}
+}
+
+
+// utility classes
+// floats
+.float-left {
+	float: left;
+}
+
+
+// sizes
+.xs {
+	font-size: 0.75rem;
+}
+
+
+.sm {
+	font-size: 0.875rem;
+}
+
+
+.md {
+	font-size: 1rem;
+}
+
+
+.lg {
+	font-size: 1.125rem;
+}
+
+
+.xl {
+	font-size: 1.25rem;
+}
